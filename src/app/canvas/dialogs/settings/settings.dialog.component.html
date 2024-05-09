@@ -1,0 +1,26 @@
+<h2 mat-dialog-title>Settings</h2>
+<div mat-dialog-content>
+  <p>{{ data.message }}</p>
+
+  <mat-form-field>
+    <mat-label> Number of points</mat-label>
+    <input matInput type="number" min="0" placeholder="Number of points" [value]="settingsService.numPoints$ | async" (input)="setNumOfPoints($event)"/>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label> Hidden neurons</mat-label>
+    <input matInput type="number" min="0" placeholder="Neurons in hidden layers" [value]="settingsService.numHiddenNeurons$ | async" (input)="setHiddenNeurons($event)"  />
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label> Learning rate</mat-label>
+    <input matInput type="number" min="0" placeholder="Learning rate" [value]="settingsService.learningRate$ | async" (input)="setLearningRate($event)"/>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label> Error Tolerance</mat-label>
+    <input matInput type="number" min="0" placeholder="Error Tolerance" [value]="settingsService.errorTolerance$ | async" (input)="setErrorTolerance($event)"/>
+  </mat-form-field>
+
+</div>
+<div mat-dialog-actions>
+  <button class="mat-elevation-z2" mat-button [mat-dialog-close]="true">Close</button>
+  <button class="mat-elevation-z2" mat-button [mat-dialog-close]="userInput" cdkFocusInitial >Save</button>
+</div>

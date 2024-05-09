@@ -1,0 +1,12 @@
+button {
+  transition-duration: 0.4s;
+  background-color: #124d54 !important;
+  color: #ededed !important;
+}
+
+
+button:hover {
+  background-color: #ededed !important;
+  color: #124d54 !important;
+  border: 2px solid #124d54 !important;
+}

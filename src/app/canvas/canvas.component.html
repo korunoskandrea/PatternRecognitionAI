@@ -1,0 +1,35 @@
+
+<canvas #myCanvas width="500" height="500"></canvas>
+
+<div class="settings" *ngIf="!recognizeMode">
+  <button class = "mat-elevation-z5" mat-icon-button  (click)="settingsClicked()">
+    <mat-icon>settings</mat-icon>
+  </button>
+</div>
+
+<div class="tellWhatIsWritten" *ngIf="recognizeMode">
+  <button class = "mat-elevation-z5" mat-icon-button  (click)="recogniseClicked()">
+    <mat-icon>question_mark</mat-icon>
+  </button>
+</div>
+
+<div class="refresh">
+  <button class = "mat-elevation-z5" mat-icon-button  (click)="refreshClicked()">
+    <mat-icon>refresh</mat-icon>
+  </button>
+</div>
+
+<div class="train" *ngIf="!recognizeMode">
+  <button class = "mat-elevation-z5" mat-icon-button  (click)="trainClicked()">
+    <mat-icon>school</mat-icon>
+  </button>
+</div>
+
+<div class="actions" *ngIf="!recognizeMode">
+  <span *ngIf="settingsService.numPoints$ | async as numOfPoints; else loading">
+      <button class="vectorize-btn mat-elevation-z5" mat-button  (click)="vectorize(numOfPoints)">Vectorize</button>
+  </span>
+  <ng-template #loading>
+    <button class="vectorize-btn disabled mat-elevation-z5" mat-button [disabled]="true">Vectorize (go to settings)</button>
+  </ng-template>
+</div>
