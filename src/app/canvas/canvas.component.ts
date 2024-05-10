@@ -91,7 +91,7 @@ export class CanvasComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  vectorize(numberOfPoints: number ) {
+  vectorize(numberOfPoints: number ) { // risanje vektorizacija
     if (!this.canvas || this.cx === null) return;
     this.canvasService.vectorize(numberOfPoints);
     const canvas = (this.canvas.nativeElement as HTMLCanvasElement);

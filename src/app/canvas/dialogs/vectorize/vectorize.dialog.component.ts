@@ -15,9 +15,7 @@ export class VectorizeDialogComponent {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private canvasService: CanvasService,
     private trainingDataService: TrainingDataService
-  ) {
-
-  }
+  ) {}
 
   saveTrainingData() {
     this.canvasService.line.pipe(take(1)).subscribe((line) => {

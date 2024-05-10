@@ -36,6 +36,7 @@ export class NeuralNetworkService {
         }
       }
       const neuronNetwork = new NeuralNetwork([ pointAmount,  hiddenNeuronsAmount, uniqueLabels.length ], uniqueLabels);
+      // start learning
       neuronNetwork.errorBackPropagationTraining(trainingData, {
         learningRate: learningRate,
         errorTolerance: errorTolerance

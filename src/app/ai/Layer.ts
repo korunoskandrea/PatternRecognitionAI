@@ -8,7 +8,7 @@ export class Layer {
     this.neurons = Array.from({ length: numNeurons }, () => new Neuron(numInputs));
   }
 
-  public feedForward(inputs: number[]): number[]{     // Activate each neuron in the layer and store outputs in a list
+  public feedForward(inputs: number[]): number[]{ // Aktiviranje nevron v layer in shramba izhodov v list
     return this.lastOutputs = this.neurons.map(neuron => neuron.activate(inputs));
   }
 
@@ -17,7 +17,7 @@ export class Layer {
 
     for (let i = 0; i < this.neurons.length; i++){
       const neuron: Neuron = this.neurons[i];
-      const delta: number = errors[i] * neuron.derivative();
+      const delta: number = errors[i] * neuron.derivative(); // Error gradient
       for (let j: number = 0; j < neuron.weights.length; j++){
         prevErrors[j] += delta * neuron.weights[j];
         neuron.weights[j] += learningRate * delta *inputs[j];

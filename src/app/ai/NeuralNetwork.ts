@@ -13,7 +13,7 @@ export class NeuralNetwork{
     for(let i = 0; i < layerSizes.length; i++){
       let numInputs;
       if(i === 0){
-        numInputs = 4;
+        numInputs = 4; // prvi layer ima 4 vhodov
       } else {
         numInputs = layerSizes[i -1];
       }
@@ -21,7 +21,7 @@ export class NeuralNetwork{
     }
   }
 
-  public predict(inputs: number[]): number[] { // Activate each layer in the network with the inputs
+  public predict(inputs: number[]): number[] { // Aktiviranje laeyers s vhodi
     let outputs = inputs;
     for (const layer of this.layers) {
       outputs = layer.feedForward(outputs);
@@ -29,7 +29,7 @@ export class NeuralNetwork{
     return outputs;
   }
 
-  public recognise(inputPoints: Point[]): string{
+  public recognise(inputPoints: Point[]): string{ // InputPoint postane razumljivi za nevronsko mrezo
     let flattened: number[] = [];
     for(const point of inputPoints){
       flattened.push(point.x);
@@ -40,24 +40,25 @@ export class NeuralNetwork{
     return this.labels[maxOutputIndex];
   }
 
+  // Implementacija algoritma vzvratnega razširjanja
   public errorBackPropagationTraining(trainingData: TrainingData[], { learningRate = 0.25, errorTolerance = 0.005}: {learningRate?: number, errorTolerance?:number}): void{
     let error = Number.MAX_VALUE;
-    while (error > errorTolerance) {
+    while (error > errorTolerance) { // treniraj dokler error ne pade pod errorTolerance
       error = 0;
       for (const data of trainingData) {
-        // Forward pass
+        // Prehod naprej
         const actualOutput = this.predict(data.flattenedInputs);
         const expectedOutput = data.getExpectedOutput(this.labels);
-        // Backward pass
-        let errors = expectedOutput.map((value, i) => value - actualOutput[i]);
+        // Prehod nazaj
+        let errors = expectedOutput.map((value, i) => value - actualOutput[i]); // Errors med actual in expectedOutput
         for (let j = this.layers.length - 1; j >= 0; j--) {
           const prevOutput = j - 1 >= 0 ? this.layers[j - 1].lastOutputs : data.flattenedInputs;
-          errors = this.layers[j].backpropagate(prevOutput, errors, learningRate);
+          errors = this.layers[j].backpropagate(prevOutput, errors, learningRate); // Azuriranje weights in biases
         }
-        // Calculate total error for this input
+        // Totalni error
         error += errors.reduce((sum, value) => sum + Math.abs(value), 0);
       }
-      // Calculate average error for this epoch
+      // Povprecni error
       error /= trainingData.length;
       if (Math.abs(error - errorTolerance) < 1e-8) {
         break;

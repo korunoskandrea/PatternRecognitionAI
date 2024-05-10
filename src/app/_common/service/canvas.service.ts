@@ -23,10 +23,10 @@ export class CanvasService {
     this.$lastAddedPoint.next({ x, y });
   }
 
-  vectorize(pointAmount: number) {
+  vectorize(pointAmount: number) { // Vektorizacija znakov
     const oldPoints = this.$line.value;
     if (oldPoints.length === 0 || pointAmount < 2) return;
-    const newPoints: Point[] = [ oldPoints[0] ];
+    const newPoints: Point[] = [ oldPoints[0] ]; // fix prvo tocko
     let step = Math.floor(oldPoints.length / pointAmount); // kolko indexsov preskocim do naslednje index ticke
     if (step === 0) step = 1;
     let currPointIndex = 0;
@@ -38,9 +38,7 @@ export class CanvasService {
       const p2 = oldPoints[currPointIndex];
       newPoints.push({ x: (p1.x + p2.x) / 2, y: (p1.y + p2.y) / 2 })
     }
-    newPoints.push(oldPoints[oldPoints.length-1]);
-
-
+    newPoints.push(oldPoints[oldPoints.length-1]); // fix zadno tocko
 
     this.$line.next(newPoints);
   }
@@ -66,7 +64,6 @@ export class CanvasService {
       const normalizedY = (point.y - minY) / (maxY - minY);
       normalized.push({ x: normalizedX, y: normalizedY });
     }
-
 
     return normalized;
   }
